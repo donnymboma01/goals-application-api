@@ -5,7 +5,7 @@ const GoalModel = require('../models/goalsModel');
 
 
 const getGoals = asyncHandler(async (req,res) =>{
-    //res.status(200).json({ message :' Get all goals from the database' });
+    
     const goals = await GoalModel.find();
 
     res.status(200).json(goals);
@@ -14,7 +14,7 @@ const getGoals = asyncHandler(async (req,res) =>{
 // @desc Add a new goal 
 
 const postGoal =asyncHandler( async (req,res) =>{
-    //res.status(201).json({ message : 'Create a new goal' });
+    
     if(!req.body.text){
         res.status(400);
         throw new Error('Please add a text field !');
@@ -30,7 +30,7 @@ const postGoal =asyncHandler( async (req,res) =>{
 });
 
 const updateGoal =asyncHandler( async (req,res) =>{
-    //res.status(200).json({ message :` Update goal ${req.params.id}` });
+    
     const goal = await GoalModel.findById(req.params.id);
 
     if(!goal){
@@ -47,7 +47,7 @@ const updateGoal =asyncHandler( async (req,res) =>{
 
 
 const deleteGoal =asyncHandler( async (req,res)=>{
-    //res.status(200).json({ message : `Delete goal ${req.params.id}` });
+    
     const goal = await GoalModel.findById(req.params.id);
 
     if(!goal){

@@ -7,6 +7,7 @@ const { errorHandler } = require('./middlewares/errorMiddleware');
 
 const GoalsRoutes = require('./routes/goals');
 const connectDB = require('./config/database');
+const UserRoutes = require('./routes/user');
 
 connectDB(); //-> Better like this.
 
@@ -18,6 +19,7 @@ app.use(cors());
 
 
 app.use('/api/goals',GoalsRoutes);
+app.use('/api/user',UserRoutes);
 app.use(errorHandler);
 
 
