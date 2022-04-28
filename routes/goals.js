@@ -1,15 +1,23 @@
-const express = require('express'); //=> common.js syntaxe
+const express = require('express'); //=> commonjs syntaxe
 const router =  express.Router();
 
-const { getGoals, postGoal, updateGoal, deleteGoal } = require('../controllers/goalController');
+const { protect } = require('../middlewares/authMiddleware');
 
-router.get('/', getGoals);
+const { 
+    getGoals,
+    postGoal,
+    updateGoal,
+    deleteGoal 
+} = require('../controllers/goalController');
 
-router.post('/',postGoal);
 
-router.put('/:id',updateGoal);
+router.get('/',protect, getGoals);
 
-router.delete('/:id',deleteGoal);
+router.post('/',protect, postGoal);
+
+router.put('/:id',protect, updateGoal);
+
+router.delete('/:id',protect,deleteGoal);
 
 
 

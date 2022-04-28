@@ -9,7 +9,7 @@ const registerUser = asyncHandler( async(req,res) =>{
 
     const { name, email, password } = req.body;
 
-    if(!name || !email || !password){
+    if (!name || !email || !password){
         res.status(400);
         throw new Error('Please add all fields !');
     }
@@ -28,7 +28,7 @@ const registerUser = asyncHandler( async(req,res) =>{
     const user = await UserModel.create({
         name : name, 
         email : email,
-        password:hashedPassword
+        password:hashedPassword 
     });
     if(user){
         res.status(201).json({
@@ -55,11 +55,9 @@ const loginUser = asyncHandler( async(req,res) =>{
 
     if(user && (await Bcrypt.compare(password,user.password))){
         res.status(200).json({
-            _id : user._id,
-            name :user.name,
-            email :user.email,
             token : generateToken(user.id,user.name,user.email)
         })
+
     }else{
         res.status(404); 
         throw new Error('Invalid creadentials !');
@@ -68,7 +66,14 @@ const loginUser = asyncHandler( async(req,res) =>{
 
 
 const getMe = asyncHandler(async (req,res) =>{
-    res.status(200).json({ message :'Yeah, this is actually me !' });
+    //res.status(200).json({ message :'Yeah, this is actually me !' });
+    const { _id, name, email } = await UserModel.findById(req.user.id);
+
+    res.status(200).json({
+        id :_id,
+        name,
+        email
+    });
 });
 
 
@@ -86,5 +91,6 @@ const generateToken = (id,name,email) =>{
 module.exports = {
     registerUser,
     loginUser,
-    getMe
+    getMe,
+    generateToken
 };
