@@ -1,13 +1,14 @@
 const express = require('express');
 require('dotenv').config();
-const mongoose = require('mongoose');
-const mongodb = require('mongodb');
 const cors = require('cors');
 const { errorHandler } = require('./middlewares/errorMiddleware');
 
 //routes
 
 const GoalsRoutes = require('./routes/goals');
+const connectDB = require('./config/database');
+
+connectDB(); //-> Better like this.
 
 const app = express();
 
