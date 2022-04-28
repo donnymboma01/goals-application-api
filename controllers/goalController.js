@@ -1,10 +1,12 @@
-const getGoals = (req,res) =>{
+const asyncHandler = require('express-async-handler'); // => cette dependance va nous eviter d'ecrire tout le temps des try...catch
+
+const getGoals = asyncHandler(async (req,res) =>{
     res.status(200).json({ message :' Get all goals from the database' });
-};
+})
 
-// @desc Add a new goal
+// @desc Add a new goal 
 
-const postGoal = (req,res) =>{
+const postGoal =asyncHandler( async (req,res) =>{
     //res.status(201).json({ message : 'Create a new goal' });
     if(!req.body.text){
         res.status(400);
@@ -13,15 +15,15 @@ const postGoal = (req,res) =>{
         res.status(201).json({ message : 'A new goal is created !' });
     }
     
-};
+});
 
-const updateGoal = (req,res) =>{
+const updateGoal =asyncHandler( async (req,res) =>{
     res.status(200).json({ message :` Update goal ${req.params.id}` });
-};
+});
 
-const deleteGoal = (req,res)=>{
+const deleteGoal =asyncHandler( async (req,res)=>{
     res.status(200).json({ message : `Delete goal ${req.params.id}` });
-};
+});
 
 module.exports = {
     getGoals,
